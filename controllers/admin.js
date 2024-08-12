@@ -1,10 +1,10 @@
 const mysqlpool = require("../config/db");
 
 const postAdmin = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
-        const data = await mysqlpool.query("SELECT * FROM admin WHERE username = ? AND password = ?", [username, password]);
+        const data = await mysqlpool.query("SELECT * FROM admin WHERE email = ? AND password = ?", [email, password]);
 
         if (data[0].length === 0) {
             return res.status(404).send("Invalid credentials");
@@ -17,3 +17,5 @@ const postAdmin = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 }
+
+module.exports = { postAdmin };
