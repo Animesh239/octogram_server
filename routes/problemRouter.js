@@ -13,8 +13,8 @@ router.get("/problems/:id", getProblemById);
 
 router.post('/admin/login', postAdmin);
 router.post('/admin/add', addProblem)
-router.put('/admin/update', updateProblem)
-router.delete('/admin/delete', deleteProblem)
+router.put('/admin/update/:id', updateProblem)
+router.delete('/admin/delete/:id', deleteProblem)
 
 
 module.exports = router;

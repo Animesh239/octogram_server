@@ -24,7 +24,7 @@ const addProblem = async (req, res) => {
     try {
         const data = await mysqlpool.query("INSERT INTO problems (categories, question, answer) VALUES (?, ?, ?)", [category, question, answer]);
         console.log(data)
-        res.status(200).send("Problem added successfully");
+        res.status(200).json(data);
 
     } catch (err) {
         console.log(err);
@@ -33,7 +33,8 @@ const addProblem = async (req, res) => {
 }
 
 const updateProblem = async (req, res) => {
-    const { category , question, answer, id } = req.body;
+    const { category , question, answer } = req.body;
+    const id = req.params.id ;
 
     try {
         const data = await mysqlpool.query("UPDATE problems SET categories = ?, question = ?, answer = ? WHERE id = ?", [category, question, answer, id]);
@@ -47,7 +48,8 @@ const updateProblem = async (req, res) => {
 }
 
 const deleteProblem = async (req, res) => {
-    const { id } = req.body;
+    // take id from parameters
+    const id = req.params.id;
 
     try {
         const data = await mysqlpool.query("DELETE FROM problems WHERE id = ?", [id]);
