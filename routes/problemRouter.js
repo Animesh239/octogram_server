@@ -1,7 +1,7 @@
 
 const express = require("express");
 const { getProblems, getProblemById } = require("../controllers/problem");
-const { postAdmin } = require("../controllers/admin");
+const { postAdmin, addProblem } = require("../controllers/admin");
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.get("/problems", getProblems);
 router.get("/problems/:id", getProblemById);
 
 router.post('/admin/login', postAdmin);
+
+router.post('/admin/add', addProblem)
+
 
 module.exports = router;
