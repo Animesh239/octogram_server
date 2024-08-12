@@ -22,7 +22,6 @@ const addProblem = async (req, res) => {
     const { category , question, answer } = req.body;
 
     try {
-        // insert into columns : categories, question, answer
         const data = await mysqlpool.query("INSERT INTO problems (categories, question, answer) VALUES (?, ?, ?)", [category, question, answer]);
         console.log(data)
         res.status(200).send("Problem added successfully");
@@ -33,5 +32,33 @@ const addProblem = async (req, res) => {
     }
 }
 
+const updateProblem = async (req, res) => {
+    const { category , question, answer, id } = req.body;
 
-module.exports = { postAdmin, addProblem }
+    try {
+        const data = await mysqlpool.query("UPDATE problems SET categories = ?, question = ?, answer = ? WHERE id = ?", [category, question, answer, id]);
+        console.log(data)
+        res.status(200).send("Problem updated successfully");
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+const deleteProblem = async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        const data = await mysqlpool.query("DELETE FROM problems WHERE id = ?", [id]);
+        console.log(data)
+        res.status(200).send("Problem deleted successfully");
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+
+module.exports = { postAdmin, addProblem, updateProblem, deleteProblem };
